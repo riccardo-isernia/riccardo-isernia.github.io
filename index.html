@@ -6,7 +6,7 @@
 <title>Riccardo Isernia</title>
 <meta name="description" content="Riccardo Isernia, laureato in Economics and Finance: analisi dei dati, economia internazionale e politica estera. / Economics and Finance graduate: data analysis, international economics and foreign policy.">
 <meta property="og:title" content="Riccardo Isernia">
-<meta property="og:description" content="My Portfolio">
+<meta property="og:description" content="Economics and Finance, analisi dei dati e politica estera.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E2338'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='white' text-anchor='middle'%3ERI%3C/text%3E%3C/svg%3E">
 <script>
@@ -96,6 +96,35 @@
   .lang-btn:hover { background: var(--accent); color: var(--accent-ink); }
   @media (max-width: 760px) { .nav { display: none; } }
 
+
+  /* Menu a tendina per telefono */
+  .menu-btn {
+    display: none; place-items: center; width: 44px; height: 38px; padding: 0; cursor: pointer;
+    color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px;
+  }
+  .menu-btn svg { width: 20px; height: 20px; }
+  .menu-btn .ico-close { display: none; }
+  .menu-btn[aria-expanded="true"] .ico-open { display: none; }
+  .menu-btn[aria-expanded="true"] .ico-close { display: block; }
+  .nav a[aria-current="page"] { color: var(--accent); }
+  .menu {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    box-shadow: 0 18px 30px -18px rgba(31, 26, 28, .35);
+    visibility: hidden; opacity: 0; transform: translateY(-6px);
+    transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+  }
+  .menu.open { visibility: visible; opacity: 1; transform: none; transition: opacity .18s ease, transform .18s ease; }
+  .menu ul { list-style: none; margin: 0 auto; padding: 4px 24px 12px; max-width: var(--max); }
+  .menu a {
+    display: block; padding: 13px 0; border-bottom: 1px solid var(--line);
+    font-family: var(--serif); font-size: 22px; color: var(--ink); text-decoration: none;
+  }
+  .menu li:last-child a { border-bottom: 0; }
+  .menu a[aria-current="page"] { color: var(--accent); }
+  @media (max-width: 760px) { .menu-btn { display: grid; } .right { gap: 10px; } }
+  @media (min-width: 761px) { .menu { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .menu, .menu.open { transition: none; } }
   /* Apertura */
   .hero { padding: 72px 0 64px; }
   .hero .wrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: 64px; align-items: center; }
@@ -105,6 +134,7 @@
     margin: 0 0 20px;
   }
   .role { font-size: 19px; color: var(--muted); margin: 0 0 28px; }
+  @media (min-width: 561px) { .role .nw { white-space: nowrap; } }
   .bio { font-family: var(--serif); font-size: 21px; line-height: 1.55; max-width: 34em; margin: 0 0 32px; }
   .actions { display: flex; flex-wrap: wrap; gap: 12px; }
   .btn {
@@ -171,102 +201,10 @@
   .skills .sub { display: block; font-size: 13px; color: var(--muted); line-height: 1.4; margin-top: 2px; }
   .skills li:has(.lvl) { align-items: center; }
   .skills .lvl { font-weight: 600; color: var(--accent) !important; background: var(--accent-soft); padding: 1px 8px; border-radius: 4px; font-size: 14px !important; }
+  .skills .verify { display: flex; align-items: center; gap: 6px; width: max-content; margin-top: 3px; font-size: 14px; font-weight: 500; text-decoration: none; }
+  .skills .verify:hover { text-decoration: underline; }
+  .skills .verify svg { width: 16px; height: 16px; flex: none; }
   @media (max-width: 640px) { .skills { grid-template-columns: 1fr; } }
-
-  /* Articoli: intestazione, aree, mappa interattiva e schede */
-  .art-head { display: grid; grid-template-columns: 220px 1fr; gap: 48px; margin-bottom: 36px; }
-  .art-head h2 { margin: 0; }
-  .art-intro { font-family: var(--serif); font-size: 20px; line-height: 1.55; margin: 0; max-width: 36em; }
-  @media (max-width: 820px) { .art-head { grid-template-columns: 1fr; gap: 16px; } }
-
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
-  .chip {
-    font: inherit; font-size: 14px; cursor: pointer;
-    padding: 6px 13px; border-radius: 999px;
-    border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-  }
-  .chip:hover { border-color: var(--accent); }
-  .chip .n { color: var(--muted); margin-left: 5px; font-variant-numeric: tabular-nums; }
-  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-  .chip[aria-pressed="true"] .n { color: inherit; opacity: .75; }
-
-  .map-scroll { overflow-x: auto; margin: 0 -24px; padding: 34px 24px 4px; scrollbar-width: thin; }
-  .map {
-    position: relative; min-width: 720px; aspect-ratio: 1000 / 436;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
-  }
-  .map svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .map .land { fill: none; stroke: var(--dots); stroke-width: 3.3; stroke-linecap: round; }
-  .map-hint { display: none; margin: 8px 0 0; }
-  @media (max-width: 760px) { .map-hint { display: block; } }
-
-  .pin {
-    position: absolute; transform: translate(-50%, -50%);
-    width: 16px; height: 16px; padding: 0; border-radius: 50%; cursor: pointer;
-    background: var(--accent); color: var(--accent-ink); border: 2px solid var(--surface);
-    font: 600 11px/1 var(--sans); display: grid; place-items: center;
-    transition: transform .2s ease, opacity .25s ease;
-  }
-  .pin.multi { width: 22px; height: 22px; }
-  .pin .lbl {
-    position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%);
-    white-space: nowrap; pointer-events: none;
-    background: var(--ink); color: var(--paper); font: 500 12px/1 var(--sans);
-    padding: 6px 9px; border-radius: 4px; opacity: 0; transition: opacity .15s ease;
-  }
-  .pin .num { pointer-events: none; }
-  .pin:hover, .pin:focus-visible, .pin.hot { transform: translate(-50%, -50%) scale(1.3); z-index: 3; }
-  .pin:hover .lbl, .pin:focus-visible .lbl, .pin.hot .lbl, .pin[aria-pressed="true"] .lbl { opacity: 1; }
-  .pin:hover .lbl, .pin:focus-visible .lbl, .pin.hot .lbl { transform: translateX(-50%) scale(.77); transform-origin: 50% 100%; }
-  .pin[aria-pressed="true"] { z-index: 2; }
-  .pin[aria-pressed="true"]::before {
-    content: ""; position: absolute; inset: -7px; border-radius: 50%;
-    border: 2px solid var(--accent); animation: ping 1.8s ease-out infinite;
-  }
-  @keyframes ping { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
-  .pin.dim { opacity: .22; }
-  .pin.pre { transform: translate(-50%, -50%) scale(0); }
-  @media (prefers-reduced-motion: reduce) {
-    .pin, .pin .lbl { transition: none; }
-    .pin[aria-pressed="true"]::before { animation: none; transform: scale(1.2); }
-  }
-
-  .sel { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 20px 0 0; }
-  .sel strong { font-family: var(--serif); font-weight: 500; font-size: 20px; }
-  .sel button {
-    font: inherit; font-size: 14px; cursor: pointer; padding: 5px 12px; border-radius: 6px;
-    color: var(--accent); background: transparent; border: 1px solid var(--accent);
-  }
-
-  .cards {
-    list-style: none; margin: 24px 0 0; padding: 0;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;
-  }
-  .card a {
-    position: relative; display: flex; flex-direction: column; gap: 10px; height: 100%;
-    padding: 20px 22px 18px; border-radius: 8px; text-decoration: none; color: inherit;
-    background: var(--surface); border: 1px solid var(--line); transition: border-color .2s ease;
-  }
-  .card a::before {
-    content: ""; position: absolute; left: -1px; top: 18px; bottom: 18px; width: 3px;
-    background: var(--accent); border-radius: 0 3px 3px 0;
-    transform: scaleY(0); transition: transform .2s ease;
-  }
-  .card a:hover, .card a:focus-visible, .card.hot a { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
-  .card a:hover::before, .card a:focus-visible::before, .card.hot a::before { transform: scaleY(1); }
-  .card .place { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--accent); }
-  .card .place svg { width: 13px; height: 13px; flex: none; }
-  .card .t { font-family: var(--serif); font-size: 21px; line-height: 1.28; }
-  .card .ex { font-size: 15px; color: var(--muted); }
-  .card .foot { margin-top: auto; padding-top: 8px; display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
-  .card .go { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-  .card .go svg { width: 12px; height: 12px; }
-  .card a:hover .go { color: var(--accent); }
-  .card.feat { grid-column: 1 / -1; }
-  .card.feat a { padding: 26px 28px 22px; }
-  .card.feat .t { font-size: clamp(24px, 3vw, 30px); max-width: 30em; }
-  .card.feat .ex { font-size: 16px; max-width: 46em; }
-  @media (prefers-reduced-motion: reduce) { .card a, .card a::before { transition: none; } }
 
   /* Contatti */
   .contact-list { margin: 0; padding: 0; list-style: none; }
@@ -279,7 +217,7 @@
   footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
 </style>
 </head>
-<body>
+<body data-title-it="Riccardo Isernia" data-title-en="Riccardo Isernia">
 
 <header class="topbar">
   <div class="wrap">
@@ -288,16 +226,30 @@
       <nav class="nav" aria-label="Sezioni">
         <a href="#chi-sono"><span data-l="it">Chi sono</span><span data-l="en">About me</span></a>
         <a href="#formazione"><span data-l="it">Formazione</span><span data-l="en">Education</span></a>
-        <a href="#collaborazioni"><span data-l="it">Collaborazioni</span><span data-l="en">Editorial work</span></a>
         <a href="#competenze"><span data-l="it">Competenze</span><span data-l="en">Skills</span></a>
-        <a href="#articoli"><span data-l="it">Articoli</span><span data-l="en">Articles</span></a>
+        <a href="#collaborazioni"><span data-l="it">Collaborazioni</span><span data-l="en">Editorial work</span></a>
+        <a href="articles"><span data-l="it">Articoli</span><span data-l="en">Articles</span></a>
         <a href="#contatti"><span data-l="it">Contatti</span><span data-l="en">Contact</span></a>
       </nav>
       <button class="lang-btn" id="langBtn" type="button">
         <span data-l="it">EN</span><span data-l="en">IT</span>
       </button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+        <svg class="ico-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <ul>
+      <li><a href="#chi-sono"><span data-l="it">Chi sono</span><span data-l="en">About me</span></a></li>
+      <li><a href="#formazione"><span data-l="it">Formazione</span><span data-l="en">Education</span></a></li>
+      <li><a href="#competenze"><span data-l="it">Competenze</span><span data-l="en">Skills</span></a></li>
+      <li><a href="#collaborazioni"><span data-l="it">Collaborazioni</span><span data-l="en">Editorial work</span></a></li>
+      <li><a href="articles"><span data-l="it">Articoli</span><span data-l="en">Articles</span></a></li>
+      <li><a href="#contatti"><span data-l="it">Contatti</span><span data-l="en">Contact</span></a></li>
+    </ul>
+  </nav>
 </header>
 
 <main>
@@ -306,7 +258,7 @@
       <div>
         <h1>Riccardo<br>Isernia</h1>
         <p class="role">
-          <span style="white-space:nowrap">Master’s Degree in Economics and Finance</span> | <span style="white-space:nowrap">Data &amp; Business Analysis</span>
+          <span class="nw">Master’s Degree in Economics and Finance</span> | <span class="nw">Data &amp; Business Analysis</span>
         </p>
         <p class="bio" data-l="it">Neolaureato magistrale in Economics and Finance presso l’Università degli Studi di Bergamo, ho seguito un percorso interdisciplinare tra economia internazionale, finanza, sostenibilità e analisi quantitative. Uso Python, R e Stata per trasformare dati complessi in risultati chiari ed efficaci. Nel tempo libero collaboro come autore e copy editor per Liberi Oltre le Illusioni.</p>
         <p class="bio" data-l="en">Recent Master’s graduate in Economics and Finance from the University of Bergamo, with an interdisciplinary background spanning international economics, finance, sustainability and quantitative analysis. I use Python, R and Stata to turn complex data into clear, effective results. In my free time I contribute to Liberi Oltre le Illusioni as a writer and copy editor.</p>
@@ -315,7 +267,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21H9z"/></svg>
             <span data-l="it">Profilo LinkedIn</span><span data-l="en">LinkedIn profile</span>
           </a>
-          <a class="btn secondary" href="#articoli"><span data-l="it">Leggi gli articoli</span><span data-l="en">Read my articles</span></a>
+          <a class="btn secondary" href="articles"><span data-l="it">Leggi gli articoli</span><span data-l="en">Read my articles</span></a>
         </div>
       </div>
       <figure class="portrait" id="portrait">
@@ -374,32 +326,6 @@
     </div>
   </section>
 
-  <section class="block" id="collaborazioni">
-    <div class="wrap block-grid">
-      <h2><span data-l="it">Collaborazioni</span><span data-l="en">Editorial work</span></h2>
-      <ol class="timeline">
-        <li>
-          <div class="when"><span data-l="it">gen 2024 – in corso</span><span data-l="en">Jan 2024 – present</span></div>
-          <div>
-            <h3><span data-l="it">Autore e copy editor</span><span data-l="en">Writer and copy editor</span></h3>
-            <p class="where"><a href="https://www.liberioltreleillusioni.it/" target="_blank" rel="noopener">Liberi Oltre le Illusioni</a></p>
-            <p data-l="it">Redazione di articoli e analisi su temi internazionali: ricerca, selezione e sintesi di fonti e dati complessi in contenuti chiari e accessibili per un pubblico non specialistico. Mi occupo inoltre della revisione degli articoli della testata.</p>
-            <p data-l="en">Writing articles and analysis on international affairs: researching, selecting and synthesising sources and complex data into clear, accessible content for a non-specialist audience. I also review and edit the publication’s articles.</p>
-          </div>
-        </li>
-        <li>
-          <div class="when">2022 – 2024</div>
-          <div>
-            <h3><span data-l="it">Autore e copy editor</span><span data-l="en">Writer and copy editor</span></h3>
-            <p class="where">Immoderati</p>
-            <p data-l="it">Articoli e analisi di politica estera e revisione degli articoli della testata.</p>
-            <p data-l="en">Foreign-policy articles and analysis, plus review and editing of the publication’s articles.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <section class="block" id="competenze">
     <div class="wrap block-grid">
       <h2><span data-l="it">Competenze</span><span data-l="en">Skills</span></h2>
@@ -407,7 +333,7 @@
         <div>
           <h3><span data-l="it">Analisi dei dati</span><span data-l="en">Data analysis</span></h3>
           <ul>
-            <li><span>Python, R, Stata</span><span><span data-l="it">solida esperienza</span><span data-l="en">solid experience</span></span></li>
+            <li><span>Python, R, Stata, SAS</span><span><span data-l="it">solida esperienza</span><span data-l="en">solid experience</span></span></li>
           </ul>
           <p class="subtle note" data-l="it">Pulizia di dataset, regressioni ed econometria panel, visualizzazione dei dati, machine learning, forecasting.</p>
           <p class="subtle note" data-l="en">Data cleaning, regression and panel econometrics, data visualisation, machine learning, forecasting.</p>
@@ -432,7 +358,11 @@
         <div>
           <h3><span data-l="it">Certificazioni</span><span data-l="en">Certifications</span></h3>
           <ul>
-            <li><span>Bloomberg Market Concepts</span><span><span data-l="it">lug 2026</span><span data-l="en">Jul 2026</span></span></li>
+            <li><span>Bloomberg Market Concepts
+              <a class="verify" href="https://portal.bloombergforeducation.com/certificates/vo3USGTJyb4tdKSMHbJK2dg9" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 2.1 3.2-.2.7 3.1 2.7 1.8-1.2 3 1.2 3-2.7 1.8-.7 3.1-3.2-.2L12 22l-2.4-2.1-3.2.2-.7-3.1L3 15.2l1.2-3L3 9.2l2.7-1.8.7-3.1 3.2.2z"/><path d="M8.5 12.2l2.3 2.3 4.7-4.8"/></svg>
+                <span data-l="it">Verifica il certificato</span><span data-l="en">Verify certificate</span>
+              </a></span><span><span data-l="it">lug 2026</span><span data-l="en">Jul 2026</span></span></li>
             <li><span><span data-l="it">Dieci lezioni sul giornalismo, Il Post</span><span data-l="en">Ten Lessons on Journalism, Il Post</span></span><span><span data-l="it">nov 2024</span><span data-l="en">Nov 2024</span></span></li>
           </ul>
         </div>
@@ -440,24 +370,30 @@
     </div>
   </section>
 
-  <section class="block" id="articoli">
-    <div class="wrap">
-      <div class="art-head">
-        <h2><span data-l="it">Articoli</span><span data-l="en">Articles</span></h2>
-        <p class="art-intro">
-          <span data-l="it">Articoli e analisi pubblicate su Liberi Oltre le Illusioni. Scegli un punto sulla mappa o un’area per vedere gli articoli che ne parlano.</span>
-          <span data-l="en">Articles and analysis published (in Italian) on Liberi Oltre le Illusioni. Pick a point on the map or an area to see the articles about it.</span>
-        </p>
-      </div>
-      <div class="chips" id="chips" role="group" aria-label="Aree / Areas"></div>
-      <div class="map-scroll">
-        <div class="map" id="map">
-          <svg viewBox="0 0 1000 436" aria-hidden="true" focusable="false"><path class="land" d="M143.5 3.5h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M136.5 10.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M122.5 17.5h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M129.5 24.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M129.5 31.5h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M45.5 38.5h0m14 0h0m105 0h0m7 0h0m7 0h0m7 0h0m7 0h0m56 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M52.5 45.5h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M59.5 52.5h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m14 0h0m49 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M38.5 59.5h0m7 0h0m7 0h0m21 0h0m7 0h0m70 0h0m14 0h0m42 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M31.5 66.5h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m49 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M31.5 73.5h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M73.5 80.5h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M59.5 87.5h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M80.5 94.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M66.5 101.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M80.5 108.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M87.5 115.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M87.5 122.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M87.5 129.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m42 0h0M38.5 136.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m56 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m98 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m63 0h0m7 0h0M38.5 143.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M38.5 150.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m56 0h0m7 0h0m35 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0M31.5 157.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m42 0h0m42 0h0m28 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m28 0h0m7 0h0m84 0h0m7 0h0M38.5 164.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m112 0h0m35 0h0m14 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m49 0h0m7 0h0m7 0h0m7 0h0m77 0h0M38.5 171.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0m28 0h0m7 0h0m49 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m35 0h0m7 0h0m70 0h0m7 0h0M52.5 178.5h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m119 0h0m35 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m49 0h0m7 0h0m49 0h0m7 0h0m7 0h0m7 0h0m7 0h0M52.5 185.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m91 0h0m7 0h0m49 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m49 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M52.5 192.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m168 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m84 0h0m7 0h0m14 0h0M38.5 199.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m154 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m63 0h0m7 0h0m7 0h0M31.5 206.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0M31.5 213.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M31.5 220.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M17.5 227.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M10.5 234.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M3.5 241.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m49 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M3.5 248.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m42 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M3.5 255.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0M3.5 262.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0M3.5 269.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M3.5 276.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0M3.5 283.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m98 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m63 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0M3.5 290.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m112 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m7 0h0M3.5 297.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m126 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m98 0h0m7 0h0M3.5 304.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m140 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m84 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m91 0h0m7 0h0M3.5 311.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m154 0h0m7 0h0m7 0h0m7 0h0m7 0h0m119 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m84 0h0M3.5 318.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m168 0h0m7 0h0m7 0h0m7 0h0m7 0h0m126 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0M3.5 325.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m189 0h0m7 0h0m7 0h0m7 0h0m7 0h0m126 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m77 0h0M3.5 332.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m210 0h0m7 0h0m7 0h0m7 0h0m126 0h0m21 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m105 0h0M3.5 339.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m7 0h0m7 0h0m161 0h0m7 0h0m7 0h0m7 0h0m126 0h0m28 0h0m7 0h0m7 0h0m7 0h0m7 0h0M3.5 346.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m175 0h0m7 0h0m133 0h0m42 0h0m84 0h0m28 0h0m7 0h0M10.5 353.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m175 0h0m21 0h0m119 0h0m119 0h0m49 0h0M10.5 360.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m203 0h0m7 0h0m119 0h0m147 0h0m7 0h0m7 0h0m7 0h0M24.5 367.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m203 0h0m7 0h0m119 0h0m7 0h0m133 0h0m14 0h0m7 0h0M31.5 374.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m343 0h0m7 0h0m91 0h0m7 0h0M129.5 381.5h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m315 0h0m7 0h0m21 0h0m7 0h0m7 0h0m70 0h0m7 0h0m7 0h0m7 0h0M157.5 388.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m329 0h0m7 0h0m14 0h0m7 0h0m7 0h0m63 0h0m7 0h0m7 0h0m7 0h0m7 0h0M157.5 395.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m336 0h0m7 0h0m7 0h0m14 0h0m7 0h0m56 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m70 0h0M150.5 402.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m357 0h0m7 0h0m7 0h0m7 0h0m49 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m14 0h0m49 0h0M150.5 409.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m371 0h0m7 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0M150.5 416.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m385 0h0m7 0h0m7 0h0m42 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m21 0h0m14 0h0m56 0h0m7 0h0m7 0h0m7 0h0m14 0h0M150.5 423.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m392 0h0m7 0h0m7 0h0m7 0h0m7 0h0m35 0h0m7 0h0m7 0h0m7 0h0m7 0h0m28 0h0m7 0h0m77 0h0m7 0h0m21 0h0m7 0h0M157.5 430.5h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0m399 0h0m7 0h0m7 0h0m7 0h0m14 0h0m28 0h0m14 0h0m7 0h0m28 0h0m14 0h0m28 0h0m14 0h0m7 0h0m21 0h0m7 0h0m14 0h0m7 0h0m7 0h0m7 0h0m7 0h0m7 0h0"/></svg>
-        </div>
-      </div>
-      <p class="map-hint subtle"><span data-l="it">Scorri la mappa di lato per vederla tutta.</span><span data-l="en">Swipe the map sideways to see all of it.</span></p>
-      <div class="sel" id="sel" hidden></div>
-      <ul class="cards" id="cards"></ul>
+  <section class="block" id="collaborazioni">
+    <div class="wrap block-grid">
+      <h2><span data-l="it">Collaborazioni</span><span data-l="en">Editorial work</span></h2>
+      <ol class="timeline">
+        <li>
+          <div class="when"><span data-l="it">gen 2024 – in corso</span><span data-l="en">Jan 2024 – present</span></div>
+          <div>
+            <h3><span data-l="it">Autore e copy editor</span><span data-l="en">Writer and copy editor</span></h3>
+            <p class="where"><a href="https://www.liberioltreleillusioni.it/" target="_blank" rel="noopener">Liberi Oltre le Illusioni</a></p>
+            <p data-l="it">Redazione di articoli e analisi su temi internazionali: ricerca, selezione e sintesi di fonti e dati complessi in contenuti chiari e accessibili per un pubblico non specialistico. Mi occupo inoltre della revisione degli articoli della testata.</p>
+            <p data-l="en">Writing articles and analysis on international affairs: researching, selecting and synthesising sources and complex data into clear, accessible content for a non-specialist audience. I also review and edit the publication’s articles.</p>
+            <p><a href="articles"><span data-l="it">Leggi i miei articoli</span><span data-l="en">Read my articles</span></a></p>
+          </div>
+        </li>
+        <li>
+          <div class="when">2022 – 2024</div>
+          <div>
+            <h3><span data-l="it">Autore e copy editor</span><span data-l="en">Writer and copy editor</span></h3>
+            <p class="where">Immoderati</p>
+            <p data-l="it">Articoli e analisi di politica estera e revisione degli articoli della testata.</p>
+            <p data-l="en">Foreign-policy articles and analysis, plus review and editing of the publication’s articles.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -479,188 +415,17 @@
 </footer>
 
 <script>
-/*
-  ELENCO DEGLI ARTICOLI
-  Per aggiungere un articolo, copia una riga e incollala in cima all'elenco: il primo articolo viene messo in evidenza.
-  - area: europa, russia-ucraina, medio-oriente, africa, asia, americhe
-  - luogo: uno dei luoghi dell'elenco LUOGHI qui sotto (definisce il punto sulla mappa)
-  - estratto: facoltativo, testo breve in italiano e in inglese
-*/
-const ARTICOLI = [
-  { titolo: "Białowieża: da foresta primordiale a cimitero a cielo aperto", link: "https://www.liberioltreleillusioni.it/articoli/articolo/bialowieza-da-foresta-primordiale-a-cimitero-a-cielo-aperto", area: "europa", luogo: "bialowieza",
-    estratto: { it: "Al confine tra Polonia e Bielorussia, una delle ultime foreste primordiali d’Europa è diventata il luogo dove migliaia di profughi muoiono di fame, sete e freddo.",
-                en: "On the Polish–Belarusian border, one of Europe’s last primeval forests has become a place where thousands of refugees die of hunger, thirst and cold." } },
-  { titolo: "Riyadh contro Abu Dhabi: la frattura che preoccupa Trump e minaccia gli equilibri regionali", link: "https://www.liberioltreleillusioni.it/articoli/articolo/riyadh-contro-abu-dhabi-la-frattura-che-preoccupa-trump-e-minaccia-gli-equilibri-regionali", area: "medio-oriente", luogo: "golfo" },
-  { titolo: "Tra il dolore e la propaganda: Teheran dopo i bombardamenti israeliani", link: "https://www.liberioltreleillusioni.it/articoli/articolo/tra-il-dolore-e-la-propaganda-teheran-dopo-i-bombardamenti-israeliani", area: "medio-oriente", luogo: "teheran" },
-  { titolo: "Dopo Prigozhin: l'importanza del gruppo Wagner nella Repubblica Centrafricana", link: "https://www.liberioltreleillusioni.it/articoli/articolo/prigozhin-wagner-repubblica-centrafricana", area: "africa", luogo: "centrafrica" },
-  { titolo: "L'impatto della divisione Est-Ovest sulle elezioni tedesche", link: "https://www.liberioltreleillusioni.it/articoli/articolo/impatto-della-divisione-est-ovest-sulle-elezioni-tedesche", area: "europa", luogo: "germania" },
-  { titolo: "I mercenari russi accusati di stupri e violenze sessuali nella Repubblica Centrafricana", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/i-mercenari-russi-accusati-di-stupri-e-violenze-sessuali-nella-repubblica-centrafricana", area: "africa", luogo: "centrafrica" },
-  { titolo: "Il nuovo asse tra Russia e Corea del Nord e la fredda reazione della Cina", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/il-nuovo-asse-tra-russia-e-corea-del-nord-e-la-fredda-reazione-della-cina", area: "asia", luogo: "coreadelnord" },
-  { titolo: "Nell’Indo-Pacifico gli Stati Uniti hanno inaugurato la co-everything policy", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/nellindo-pacifico-gli-stati-uniti-hanno-inaugurato-la-co-everything-policy", area: "asia", luogo: "indopacifico" },
-  { titolo: "L’estrema destra europea è in forte ascesa: quanto dovremmo preoccuparcene?", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/lestrema-destra-europea-e-in-forte-ascesa-quanto-dovremmo-preoccuparcene", area: "europa", luogo: "europa" },
-  { titolo: "Il rinnovato dibattito sull'importanza della politica di deterrenza nucleare inglese", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/il-rinnovato-dibattito-sullimportanza-della-politica-di-deterrenza-nucleare-inglese", area: "europa", luogo: "regnounito" },
-  { titolo: "Perché la Germania continua ad avere una posizione incoerente sull'Ucraina?", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/perche-la-germania-continua-ad-avere-una-posizione-incoerente-sullucraina", area: "russia-ucraina", luogo: "germania" },
-  { titolo: "L'UE ha promesso un milione di proiettili d'artiglieria all'Ucraina. Riuscirà a mantenere la promessa?", link: "https://www.liberioltreleillusioni.it/immoderati/articolo/lue-ha-promesso-un-milione-di-proiettili-dartiglieria-allucraina-riuscira-a-mantenere-la-promessa", area: "russia-ucraina", luogo: "ucraina" },
-];
-
-/*
-  LUOGHI SULLA MAPPA
-  Per un luogo nuovo aggiungi una riga con longitudine e latitudine (le trovi su Google Maps:
-  clic destro sul punto, il primo numero è la latitudine, il secondo la longitudine).
-  La mappa copre circa da longitudine -14 a 142 e da latitudine -4 a 64.
-*/
-const LUOGHI = {
-  bialowieza:   { lon: 23.9,   lat: 52.7,  it: "Białowieża",               en: "Białowieża" },
-  golfo:        { lon: 46.7,   lat: 24.7,  it: "Riyadh e Abu Dhabi",       en: "Riyadh and Abu Dhabi" },
-  teheran:      { lon: 51.4,   lat: 35.7,  it: "Teheran",                  en: "Tehran" },
-  centrafrica:  { lon: 18.56,  lat: 4.36,  it: "Repubblica Centrafricana", en: "Central African Republic" },
-  germania:     { lon: 13.4,   lat: 52.5,  it: "Germania",                 en: "Germany" },
-  coreadelnord: { lon: 125.75, lat: 39.03, it: "Corea del Nord",           en: "North Korea" },
-  indopacifico: { lon: 134,    lat: 12,    it: "Indo-Pacifico",            en: "Indo-Pacific" },
-  europa:       { lon: 4.35,   lat: 50.85, it: "Europa",                   en: "Europe" },
-  regnounito:   { lon: -0.13,  lat: 51.5,  it: "Regno Unito",              en: "United Kingdom" },
-  ucraina:      { lon: 30.52,  lat: 50.45, it: "Ucraina",                  en: "Ukraine" },
-};
-
 (function () {
-  const AREE = {
-    "europa": { it: "Europa", en: "Europe" },
-    "russia-ucraina": { it: "Russia e Ucraina", en: "Russia and Ukraine" },
-    "medio-oriente": { it: "Medio Oriente", en: "Middle East" },
-    "africa": { it: "Africa", en: "Africa" },
-    "asia": { it: "Asia", en: "Asia" },
-    "americhe": { it: "Americhe", en: "Americas" },
-  };
-  const ICONA_LUOGO = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
-  const ICONA_ESTERNO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
-  const stato = { area: "", luogo: "" };
-  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  const doppio = (tag, cls, it, en) => {
-    const w = el(tag, cls);
-    const a = el("span", null, it); a.dataset.l = "it";
-    const b = el("span", null, en); b.dataset.l = "en";
-    w.append(a, b); return w;
-  };
-  const nomeArea = (k) => AREE[k] || { it: k, en: k };
-  const nomeLuogo = (k) => LUOGHI[k] || { it: k, en: k };
-
-  // Filtri per area
-  const chips = document.getElementById("chips");
-  const chip = (val, label, n) => {
-    const b = doppio("button", "chip", label.it, label.en);
-    b.type = "button"; b.dataset.area = val;
-    b.append(el("span", "n", String(n)));
-    b.addEventListener("click", () => { stato.area = val; stato.luogo = ""; aggiorna(); });
-    chips.append(b);
-  };
-  chip("", { it: "Tutti", en: "All" }, ARTICOLI.length);
-  Object.keys(AREE).forEach(k => {
-    const n = ARTICOLI.filter(a => a.area === k).length;
-    if (n) chip(k, AREE[k], n);
-  });
-
-  // Punti sulla mappa (stessa proiezione della mappa: da lon -14 a 142, da lat 64 a -4)
-  const mappa = document.getElementById("map");
-  const pins = {};
-  Object.keys(LUOGHI).forEach(k => {
-    const n = ARTICOLI.filter(a => a.luogo === k).length;
-    if (!n) return;
-    const L = LUOGHI[k];
-    const b = el("button", "pin pre" + (n > 1 ? " multi" : ""));
-    b.type = "button";
-    b.style.left = ((L.lon + 14) / 156 * 100) + "%";
-    b.style.top = ((64 - L.lat) / 68 * 100) + "%";
-    if (n > 1) b.append(el("span", "num", String(n)));
-    b.append(doppio("span", "lbl", L.it + (n > 1 ? ", " + n + " articoli" : ""), L.en + (n > 1 ? ", " + n + " articles" : "")));
-    b.addEventListener("click", () => { stato.luogo = stato.luogo === k ? "" : k; stato.area = ""; aggiorna(); });
-    b.addEventListener("mouseenter", () => evidenzia(k, true));
-    b.addEventListener("mouseleave", () => evidenzia(k, false));
-    b.addEventListener("focus", () => evidenzia(k, true));
-    b.addEventListener("blur", () => evidenzia(k, false));
-    mappa.append(b); pins[k] = b;
-  });
-
-  // I punti compaiono uno dopo l'altro quando la mappa entra nello schermo
-  const mostraPin = () => Object.values(pins).forEach((p, i) => setTimeout(() => p.classList.remove("pre"), 90 * i));
-  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    Object.values(pins).forEach(p => p.classList.remove("pre"));
-  } else {
-    const io = new IntersectionObserver((e) => { if (e[0].isIntersecting) { mostraPin(); io.disconnect(); } }, { threshold: 0.35 });
-    io.observe(mappa);
-  }
-
-  function evidenzia(luogo, on) {
-    document.querySelectorAll('.card[data-luogo="' + luogo + '"]').forEach(c => c.classList.toggle("hot", on));
-  }
-
-  // Schede degli articoli
-  const lista = document.getElementById("cards");
-  const schede = ARTICOLI.map((a, i) => {
-    const li = el("li", "card" + (i === 0 ? " feat" : ""));
-    li.dataset.luogo = a.luogo || "";
-    const link = el("a"); link.href = a.link; link.target = "_blank"; link.rel = "noopener";
-    if (a.luogo) {
-      const L = nomeLuogo(a.luogo);
-      const p = doppio("span", "place", L.it, L.en);
-      p.insertAdjacentHTML("afterbegin", ICONA_LUOGO);
-      link.append(p);
-    }
-    const t = el("span", "t", a.titolo); t.lang = "it"; link.append(t);
-    if (a.estratto) link.append(doppio("span", "ex", a.estratto.it, a.estratto.en || a.estratto.it));
-    const foot = el("span", "foot");
-    const A = nomeArea(a.area);
-    foot.append(doppio("span", null, A.it, A.en));
-    const go = doppio("span", "go", "Leggi l’articolo", "Read (Italian)");
-    go.insertAdjacentHTML("beforeend", ICONA_ESTERNO);
-    foot.append(go); link.append(foot);
-    if (a.luogo) {
-      link.addEventListener("mouseenter", () => pins[a.luogo] && pins[a.luogo].classList.add("hot"));
-      link.addEventListener("mouseleave", () => pins[a.luogo] && pins[a.luogo].classList.remove("hot"));
-      link.addEventListener("focus", () => pins[a.luogo] && pins[a.luogo].classList.add("hot"));
-      link.addEventListener("blur", () => pins[a.luogo] && pins[a.luogo].classList.remove("hot"));
-    }
-    li.append(link); lista.append(li);
-    return { a, li };
-  });
-
-  // Riga che indica il filtro attivo, con il tasto per tornare a tutti gli articoli
-  const sel = document.getElementById("sel");
-  function aggiorna() {
-    const visibili = (a) => (!stato.area || a.area === stato.area) && (!stato.luogo || a.luogo === stato.luogo);
-    let n = 0;
-    schede.forEach(({ a, li }, i) => {
-      const ok = visibili(a); li.hidden = !ok; if (ok) n++;
-      li.classList.toggle("feat", i === 0 && !stato.area && !stato.luogo);
-    });
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.area === stato.area && !stato.luogo ? "true" : "false"));
-    Object.entries(pins).forEach(([k, p]) => {
-      p.setAttribute("aria-pressed", stato.luogo === k ? "true" : "false");
-      const attivo = ARTICOLI.some(a => a.luogo === k && (!stato.area || a.area === stato.area));
-      p.classList.toggle("dim", (stato.luogo && stato.luogo !== k) || !attivo);
-    });
-    sel.innerHTML = "";
-    if (stato.luogo || stato.area) {
-      const nome = stato.luogo ? nomeLuogo(stato.luogo) : nomeArea(stato.area);
-      sel.append(doppio("strong", null, nome.it, nome.en));
-      sel.append(doppio("span", "subtle", n + (n === 1 ? " articolo" : " articoli"), n + (n === 1 ? " article" : " articles")));
-      const b = doppio("button", null, "Mostra tutti", "Show all"); b.type = "button";
-      b.addEventListener("click", () => { stato.area = ""; stato.luogo = ""; aggiorna(); });
-      sel.append(b);
-      sel.hidden = false;
-    } else {
-      sel.hidden = true;
-    }
-  }
-  aggiorna();
-})();
-
-(function () {
-  // Cambio lingua
   const root = document.documentElement;
+
+  // Cambio lingua (la scelta vale per tutte le pagine del sito)
   const btn = document.getElementById("langBtn");
+  const menuBtn = document.getElementById("menuBtn");
+  const foto = document.querySelector("#portrait .bw");
   const imposta = (l) => {
     root.className = "lang-" + l; root.lang = l;
-    document.querySelector("#portrait .bw").alt = l === "en" ? "Portrait of Riccardo Isernia" : "Ritratto di Riccardo Isernia";
+    document.title = document.body.dataset["title" + (l === "en" ? "En" : "It")];
+    if (foto) foto.alt = l === "en" ? "Portrait of Riccardo Isernia" : "Ritratto di Riccardo Isernia";
     btn.setAttribute("aria-label", l === "en" ? "Leggi in italiano" : "Read in English");
   };
   btn.addEventListener("click", () => {
@@ -670,9 +435,27 @@ const LUOGHI = {
   });
   imposta(root.lang === "en" ? "en" : "it");
 
+  // Menu a tendina su telefono
+  const menu = document.getElementById("menu");
+  const apri = (on) => { menu.classList.toggle("open", on); menuBtn.setAttribute("aria-expanded", on ? "true" : "false"); };
+  menuBtn.addEventListener("click", (e) => { e.stopPropagation(); apri(!menu.classList.contains("open")); });
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) apri(false); });
+  document.addEventListener("click", (e) => { if (!menu.contains(e.target)) apri(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && menu.classList.contains("open")) { apri(false); menuBtn.focus(); } });
+  matchMedia("(min-width: 761px)").addEventListener("change", (e) => { if (e.matches) apri(false); });
+
   // Foto: al tocco su telefono passa da bianco e nero a colori
   const p = document.getElementById("portrait");
-  p.addEventListener("click", () => p.classList.toggle("on"));
+  if (p) p.addEventListener("click", () => p.classList.toggle("on"));
+
+  // Anteprima dal computer (file aperto con doppio clic): i link tra le pagine puntano ai file .html
+  if (location.protocol === "file:") {
+    document.querySelectorAll("a[href]").forEach(a => {
+      const h = a.getAttribute("href");
+      if (h === "articles" || h.indexOf("articles#") === 0) a.setAttribute("href", h.replace("articles", "articles.html"));
+      else if (h.indexOf("./") === 0) a.setAttribute("href", "index.html" + h.slice(2));
+    });
+  }
 
   document.getElementById("y").textContent = new Date().getFullYear();
 })();
